@@ -9,7 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 
 const TAREFAS = [
-  { id: 'T1', nome: 'Ler edital PIC', desc: '...', img: 'url', projetosVinculados: ['P1']},
+  { id: 'T1', nome: 'Ler edital PIC', desc: '...', img: 'img/pic.jpg', projetosVinculados: ['P1']},
   { id: 'T2', nome: 'Ver video aula de JavaScript', desc: '...', img: 'url', projetosVinculados: ['P2','P3']},
   { id: 'T3', nome: 'Ir na reunião de alinhamento', desc: '...', img: 'url', projetosVinculados: ['P3']},
   { id: 'T4', nome: 'Estudar PMBOK', desc: '...', img: 'url', projetosVinculados: ['P4']},
