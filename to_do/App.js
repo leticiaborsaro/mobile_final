@@ -106,7 +106,6 @@ function TelaInicial({ navigation }) {
           style={styles.card} 
           onPress={() => navigation.navigate('Tarefa', {idTarefa: item.id})}
         >
-          {/* A imagem vem ANTES do texto agora, para ficar na esquerda! */}
           <Image source={item.img} style={styles.imagem} />
           <Text style={styles.nomeTarefa}>{item.nome}</Text>
         </TouchableOpacity>
@@ -134,10 +133,8 @@ function TelaProjeto({ route, navigation }) {
   const { idProjeto } = route.params;
   const projeto = PROJETOS.find(p => p.id === idProjeto);
 
-  // Aqui nós filtramos as tarefas que pertencem a este projeto específico
   const tarefasDesteProjeto = TAREFAS.filter(t => projeto.tarefasVinculadas.includes(t.id));
 
-  // + 2 inputs para completar os 4 exigidos pelo trabalho
   const [nomeProj, setNomeProj] = useState(projeto.nome);
   const [descProj, setDescProj] = useState(projeto.desc);
 
@@ -150,7 +147,6 @@ function TelaProjeto({ route, navigation }) {
 
   return (
     <ScrollView style={styles.containerScroll}>
-      {/* Imagem como um banner no topo */}
       <Image source={projeto.img} style={styles.imagemGrandeProjeto} />
       
       <TextInput 
@@ -167,7 +163,6 @@ function TelaProjeto({ route, navigation }) {
         multiline 
       />
 
-      {/* Lista de tarefas vinculadas ao projeto */}
       <Text style={[styles.secaoTitle, { marginTop: 30 }]}>Tarefas</Text>
       {tarefasDesteProjeto.map(tarefa => (
         <TouchableOpacity 
@@ -180,7 +175,6 @@ function TelaProjeto({ route, navigation }) {
         </TouchableOpacity>
       ))}
 
-      {/* Botão Salvar do Projeto */}
       <TouchableOpacity style={styles.btnSalvar} onPress={handleSalvarProjeto}>
         <Text style={styles.btnTexto}>SALVAR PROJETO</Text>
       </TouchableOpacity>
@@ -193,7 +187,6 @@ function TelaTarefa({ route, navigation }) {
 
   const { idTarefa } = route.params;
   
-  // Encontra a tarefa original no array global
   const tarefa = TAREFAS.find(t => t.id === idTarefa);
 
   // Estados locais para edição (iniciam com os valores da tarefa)
@@ -203,10 +196,8 @@ function TelaTarefa({ route, navigation }) {
   const [progresso, setProgresso] = useState(tarefa?.progresso || 0);
   const [isUrgente, setUrgente] = useState(tarefa?.isUrgente || false);
 
-  // Trava de segurança
   if (!tarefa) return <Text style={{ marginTop: 50, textAlign: 'center' }}>Tarefa não encontrada</Text>;
 
-  // Lógica para descobrir quais projetos usam essa tarefa
   const projetosDestaTarefa = PROJETOS.filter(p => p.tarefasVinculadas.includes(idTarefa));
 
   // Função para definir a cor do status
@@ -217,9 +208,7 @@ function TelaTarefa({ route, navigation }) {
     return '#bdc3c7';
   };
 
-  // --- O NOVO SALVAMENTO EM MEMÓRIA ---
   const handleSalvar = () => {
-    // Salvando todos os campos no objeto global
     tarefa.nome = nomeEditado;
     tarefa.desc = descEditada;
     tarefa.status = status;
@@ -243,7 +232,6 @@ function TelaTarefa({ route, navigation }) {
         <Image source={tarefa.img} style={styles.imagemGrandeTarefa} />
       </View>
 
-      {/* Badge de Status Dinâmico */}
       <View style={[styles.statusBadge, { backgroundColor: getStatusColor() }]}>
         <Text style={styles.statusText}>{status}</Text>
       </View>
@@ -299,7 +287,6 @@ function TelaTarefa({ route, navigation }) {
 
 export default function App() {
   return (
-  //Container para navegação
   <NavigationContainer>
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={TelaInicial}/>
@@ -315,7 +302,7 @@ const styles = StyleSheet.create({
   containerScroll: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20, // Dá aquele respiro nas bordas igual ao mockup
+    padding: 20, 
   },
   secaoTitle: {
     color: 'black',
@@ -326,9 +313,9 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
     flexDirection: 'row', 
-    alignItems: 'center', // Centraliza verticalmente
+    alignItems: 'center', 
     padding: 15,
-    marginBottom: 15, // Espaçamento entre os cards
+    marginBottom: 15, 
     borderRadius: 10,
     elevation: 3,
     shadowColor: '#000',
@@ -368,7 +355,7 @@ const styles = StyleSheet.create({
   titleDetails: {
     fontSize: 26,
     fontWeight: 'bold',
-    flex: 1, // Para não invadir o espaço da imagem
+    flex: 1,
     marginRight: 10,
   },
   label: {
@@ -376,7 +363,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginTop: 15,
     marginBottom: 5,
-    textDecorationLine: 'underline', // O sublinhado que você colocou em "Descrição"
+    textDecorationLine: 'underline', 
   },
   row: {
     flexDirection: 'row',
@@ -387,13 +374,13 @@ const styles = StyleSheet.create({
   inputEditavel: {
     fontSize: 16,
     color: '#333',
-    backgroundColor: '#f9f9f9', // Fundo levemente cinza
+    backgroundColor: '#f9f9f9', 
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
     padding: 10,
     marginBottom: 15,
-    textAlignVertical: 'top', // Para o texto começar no topo em multiline
+    textAlignVertical: 'top', 
   },
   statusBadge: {
     paddingVertical: 5,
@@ -420,7 +407,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
-  // Reutilizando estilos para a lista de projetos dentro da tarefa
   listaHorizontal: {
     marginBottom: 20,
   }
